@@ -13,6 +13,19 @@ namespace SymulatorGierLosowych
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Router dotyczący szczegółów gry
+            routes.MapRoute(
+                name: "GameDetalis",
+                url: "game-{id}.html",
+                defaults: new { controller = "Game", action = "Details" }
+            );
+
+            routes.MapRoute(
+    name: "GameDetalis",
+    url: "game-{id}.html",
+    defaults: new { controller = "Game", action = "Details" }
+);
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
