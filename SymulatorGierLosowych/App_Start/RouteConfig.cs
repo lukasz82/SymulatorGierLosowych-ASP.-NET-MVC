@@ -20,11 +20,21 @@ namespace SymulatorGierLosowych
                 defaults: new { controller = "Game", action = "Details" }
             );
 
+            // Router do obsługi widoków
             routes.MapRoute(
-    name: "GameDetalis",
-    url: "game-{id}.html",
-    defaults: new { controller = "Game", action = "Details" }
-);
+                name: "StaticPages",
+                url: "strony/{viewname}.html",
+                defaults: new { controller = "Home", action = "StaticContent" }
+            );
+
+            // Router wczytujący listę gier
+            routes.MapRoute(
+                name: "GamesList",
+                url: "gry/{gamename}",
+                defaults: new { controller = "Game", action = "List" },
+                // \w - tylko znaki alfanumeryczne, &-end i spacje(puste pole)
+                constraints: new {gamename = @"[\w& ]+"}
+            );
 
             routes.MapRoute(
                 name: "Default",

@@ -6,18 +6,22 @@ using System.Web.Mvc;
 
 namespace SymulatorGierLosowych.Controllers
 {
-    public class HomeController : Controller
+    public class GameController : Controller
     {
-        // GET: Home
+        // GET: Game
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: Home
-        public ActionResult StaticContent(string viewname)
+        public ActionResult Details(int id)
         {
-            return View(viewname);
+            return View();
+        }
+
+        public ActionResult List(string gamename)
+        {
+            return View();
         }
     }
 }
