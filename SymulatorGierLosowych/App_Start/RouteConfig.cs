@@ -23,7 +23,7 @@ namespace SymulatorGierLosowych
             // Router do obsługi widoków
             routes.MapRoute(
                 name: "StaticPages",
-                url: "strony/{viewname}.html",
+                url: "dupa/{viewname}.html",
                 defaults: new { controller = "Home", action = "StaticContent" }
             );
 
