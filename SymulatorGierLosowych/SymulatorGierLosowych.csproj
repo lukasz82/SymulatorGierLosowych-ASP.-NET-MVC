@@ -135,12 +135,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DuzyLotekController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DuzyLotek.cs" />
+    <Compile Include="Models\Game.cs" />
+    <Compile Include="Models\GamePlayedDetails.cs" />
+    <Compile Include="Models\GamesPlayed.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +161,7 @@
     <Content Include="Views\Home\Regulamin.cshtml" />
     <Content Include="Views\Shared\_StoredLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\DuzyLotek\DuzyLotek.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,7 +171,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

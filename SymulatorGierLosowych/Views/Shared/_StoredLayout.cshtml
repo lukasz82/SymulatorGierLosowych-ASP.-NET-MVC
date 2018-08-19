@@ -7,6 +7,9 @@
 <html>
 <head>
  <link href="../Content/Style.css" rel="stylesheet"/>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -17,9 +20,9 @@
 
     <div class="topnav">
         <a href="@Url.Action("StaticContent", "Home", new { viewname = "OMnie" })">O mnie</a>
-        <a href="#">Link</a>
-        <a href="#">Link</a>
-        <a href="#" style="float:right">Link</a>
+        <a href="@Url.Action("StaticContent", "Home", new { viewname = "Kontakt" })">Kontakt</a>
+        <a href="@Url.Action("StaticContent", "Home", new { viewname = "Regulamin" })">Regulamin</a>
+        <a href="@Url.Content("~/")" style="float:right">Strona Główna</a>
     </div>
 
     <div class="row">
