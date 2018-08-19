@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{213300B5-E838-47A6-BC7E-A083BB788726}</ProjectGuid>
+    <ProjectGuid>{E853A801-AD11-4FC7-ADE7-8858943AC7C6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SymulatorGierLosowych.Tests</RootNamespace>
@@ -53,13 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SymulatorGierLosowych\SymulatorGierLosowych.csproj">
-      <Project>{D390C854-F4A8-488B-B6B1-40FF64B6AE95}</Project>
+      <Project>{6F5AB683-65D6-4A49-90B8-CFF5F6E21549}</Project>
       <Name>SymulatorGierLosowych</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
