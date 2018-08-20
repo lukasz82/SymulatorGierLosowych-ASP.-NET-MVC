@@ -1,0 +1,1 @@
+﻿// To jest kontekst bazy danych, ten plik jest tylko informacją dla mnie :)

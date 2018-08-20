@@ -5,9 +5,10 @@ using System.Web;
 
 namespace SymulatorGierLosowych.Models
 {
-    public class Genre
+    public class GameGenre
     {
-        public int GenreId { get; set; }
+        // Np Gry Liczowe typu lotto, gry karciane, gry na automatach
+        public int GameGenreId { get; set; }
         public string GenreName { get; set; }
         public string Description { get; set; }
         public string GenreImage { get; set; }
