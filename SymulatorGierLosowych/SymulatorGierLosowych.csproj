@@ -150,6 +150,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\DataAccesLayer.cs" />
     <Compile Include="DAL\StoreContex.cs" />
+    <Compile Include="DAL\StoreInitializer.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -14,8 +14,14 @@ namespace SymulatorGierLosowych.DAL
 
         }
 
-        public DbSet<Game> Game { get; set; }
+        static StoreContex()
+        {
+            // Inicjalizator automatycznych wpisów do bazy danych
+            Database.SetInitializer<StoreContex>(new StoreInitializer());
+        }
 
-        public DbSet<GameGenre> GameGenre { get; set; }
+        public DbSet<Game> Games { get; set; }
+
+        public DbSet<GameGenre> GameGenres { get; set; }
     }
 }
