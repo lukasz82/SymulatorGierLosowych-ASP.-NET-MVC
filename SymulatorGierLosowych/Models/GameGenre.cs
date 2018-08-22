@@ -12,6 +12,7 @@ namespace SymulatorGierLosowych.Models
         public string GenreName { get; set; }
         public string Description { get; set; }
         public string GenreImage { get; set; }
+        public string ShortDescription { get; set; }
         // Właściwość - klucz obcy - jeden do wielu, jeden gatunek do wielu gier
         public virtual ICollection<Game> Games { get; set; }
     }

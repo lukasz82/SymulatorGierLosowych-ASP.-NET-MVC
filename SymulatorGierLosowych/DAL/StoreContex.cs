@@ -17,7 +17,7 @@ namespace SymulatorGierLosowych.DAL
         static StoreContex()
         {
             // Inicjalizator automatycznych wpisów do bazy danych
-            Database.SetInitializer<StoreContex>(new StoreInitializer());
+           Database.SetInitializer<StoreContex>(new StoreInitializer());
         }
 
         public DbSet<Game> Games { get; set; }

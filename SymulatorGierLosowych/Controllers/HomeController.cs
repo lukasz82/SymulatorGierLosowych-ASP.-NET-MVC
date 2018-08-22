@@ -20,6 +20,7 @@ namespace SymulatorGierLosowych.Controllers
             //db.SaveChanges();
 
             var gameGenreList = db.GameGenres.ToList();
+
             return View();
         }
 

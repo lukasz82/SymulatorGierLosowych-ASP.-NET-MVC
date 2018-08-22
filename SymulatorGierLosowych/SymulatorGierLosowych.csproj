@@ -155,6 +155,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808220949251_InitialCreate.cs" />
+    <Compile Include="Migrations\201808220949251_InitialCreate.Designer.cs">
+      <DependentUpon>201808220949251_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808221020110_ShortDescription.cs" />
+    <Compile Include="Migrations\201808221020110_ShortDescription.Designer.cs">
+      <DependentUpon>201808221020110_ShortDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DuzyLotek.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\GamePlayedDetails.cs" />
@@ -184,6 +193,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201808220949251_InitialCreate.resx">
+      <DependentUpon>201808220949251_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808221020110_ShortDescription.resx">
+      <DependentUpon>201808221020110_ShortDescription.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

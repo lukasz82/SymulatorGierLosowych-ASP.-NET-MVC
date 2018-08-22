@@ -1,23 +1,25 @@
-﻿using SymulatorGierLosowych.Models;
+﻿using SymulatorGierLosowych.Migrations;
+using SymulatorGierLosowych.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Data.Entity.Migrations;
 
 namespace SymulatorGierLosowych.DAL
 {
     // Tutaj będę wrzucał przykładowe dane do bazy
-    public class StoreInitializer : DropCreateDatabaseAlways<StoreContex>
+    public class StoreInitializer : MigrateDatabaseToLatestVersion<StoreContex, Configuration>
     {
-        // 
-        protected override void Seed(StoreContex contex)
-        {
-            SeedStoreData(contex);
-            base.Seed(contex);
-        }
+        // Nadpisuję metodę seed 
+        //protected override void Seed(StoreContex contex)
+        //{
+        //    SeedStoreData(contex);
+        //    base.Seed(contex);
+        //}
 
-        private void SeedStoreData(StoreContex contex)
+        public static void SeedStoreData(StoreContex contex)
         {
             var game_genres = new List<GameGenre>
             {
@@ -27,7 +29,7 @@ namespace SymulatorGierLosowych.DAL
                 new GameGenre() {GameGenreId = 4, GenreName = "Gry Inne", Description = "Gry inne", GenreImage = "4.png" }
             };
             //contex.Database.ExecuteSqlCommand("TRUNCATE TABLE [GameGenre]");
-            game_genres.ForEach(g => contex.GameGenres.Add(g));
+            game_genres.ForEach(g => contex.GameGenres.AddOrUpdate(g));
             contex.SaveChanges();
         }
     }
