@@ -15,11 +15,7 @@ namespace SymulatorGierLosowych.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            //GameGenre newGameGenre = new GameGenre { GenreName = "Gry Liczbowe", Description = "Gry Typu lotto", GenreImage = "1.png" };
-            //db.GameGenre.Add(newGameGenre);
-            //db.SaveChanges();
-
-            var gameGenreList = db.GameGenres.ToList();
+            var genres = db.GameGenres;
 
             return View();
         }

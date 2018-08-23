@@ -14,7 +14,7 @@ namespace SymulatorGierLosowych.Models
         [StringLength(150)]
         public string GameName { get; set; }
         public int GameGenreId { get; set; }
-        public DateTime DateAdded { get; set; }
+        public DateTime? DateAdded { get; set; }
         public string GameImage { get; set; }
         public string Description { get; set; }
         // Właściwość - klucz obcy - jeden do wielu, jeden gatunek do wielu gier

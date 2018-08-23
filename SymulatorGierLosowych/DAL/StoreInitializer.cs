@@ -31,6 +31,20 @@ namespace SymulatorGierLosowych.DAL
             //contex.Database.ExecuteSqlCommand("TRUNCATE TABLE [GameGenre]");
             game_genres.ForEach(g => contex.GameGenres.AddOrUpdate(g));
             contex.SaveChanges();
+
+            var games = new List<Game>
+            {
+                new Game() {GameID = 1, GameName = "Lotto", GameGenreId = 1, Description = "Gra w lotka, opis"},
+                new Game() {GameID = 2, GameName = "MiniLotto", GameGenreId = 1, Description = "Gra w mini-lotka, opis"},
+                new Game() {GameID = 3, GameName = "EuroJackpot", GameGenreId = 1, Description = "Gra w eurojackpot, opis"},
+                new Game() {GameID = 4, GameName = "JAKPOT 6000", GameGenreId = 2, Description = "Gra w JAKPOT 6000 , opis"},
+                new Game() {GameID = 5, GameName = "Poker", GameGenreId = 3, Description = "Gra w pokera, opis"},
+                new Game() {GameID = 6, GameName = "Brydż", GameGenreId = 3, Description = "Gra w brydża, opis"},
+                new Game() {GameID = 7, GameName = "Kierki", GameGenreId = 3, Description = "Gra w brydża, opis"},
+            };
+            //contex.Database.ExecuteSqlCommand("TRUNCATE TABLE [GameGenre]");
+            games.ForEach(g => contex.Games.AddOrUpdate(g));
+            contex.SaveChanges();
         }
     }
 }
