@@ -1,4 +1,5 @@
 ﻿using SymulatorGierLosowych.DAL;
+using SymulatorGierLosowych.Models;
 using SymulatorGierLosowych.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,32 @@ namespace SymulatorGierLosowych.Controllers
 
         public ActionResult AddGameToDB(string name, int genreid, string description)
         {
-            return View();
+            var games = db.Set<Game>();
+            games.Add(new Game {GameName = name, GameGenreId = genreid, Description = description });
+
+            try
+            {
+                db.SaveChanges();
+                ViewBag.name = name;
+                ViewBag.genreid = genreid;
+                ViewBag.description = description;
+                return View();
+            }
+            catch (InvalidCastException e)
+            {
+                ViewBag.e = e;
+                return View(e);
+            }
         }
 
         public ActionResult AddNewGame()
         {
-            return View();
+            var genres = db.GameGenres.ToList();
+            var vm = new HomeViewModel()
+            {
+                GameGenres = genres
+            };
+            return View(vm);
         }
 
         public ActionResult List(int id)

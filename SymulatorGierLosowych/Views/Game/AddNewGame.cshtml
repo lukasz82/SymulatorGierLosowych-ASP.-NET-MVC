@@ -1,8 +1,36 @@
-﻿
+﻿@model SymulatorGierLosowych.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "AddNewGame";
     Layout = "~/Views/Shared/_StoredLayout.cshtml";
 }
 
 <h2>AddNewGame</h2>
+Nazwa
 
+@*@using (Html.BeginForm())
+{*@
+    @*<form method="POST" action="~/Game/AddGameToDB">*@
+        <form method="POST" action="@Url.Action("AddGameToDB", "Game")">
+
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-1">
+                <div class="form-group">
+                    <label for="usr">Wybierz gatunek</label>
+                    <select class="form-control" id="GenreId" name="genreid">
+                        @foreach (var g in Model.GameGenres)
+                        {
+                            <option value="@g.GameGenreId">@g.GenreName</option>;
+                        }
+
+                    </select>
+
+                    <label for="usr">Wpisz nazwe gry</label><input type="text" class="form-control" name="name"><br>
+                    <label for="usr">Opisz grę</label>
+                    <textarea rows="8" cols="80" name="description"></textarea>
+                    </br>
+                    <button type="submit" class="btn btn-default">Dodaj nową grę</button>
+                </div>
+            </div>
+        </div>
+    </form>
+@*}*@

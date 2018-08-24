@@ -183,6 +183,7 @@
     <Content Include="Views\DuzyLotek\DuzyLotek.cshtml" />
     <Content Include="Views\Game\List.cshtml" />
     <Content Include="Views\Game\AddNewGame.cshtml" />
+    <Content Include="Views\Game\AddGameToDB.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
