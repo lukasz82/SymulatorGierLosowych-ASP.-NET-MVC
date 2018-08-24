@@ -3,12 +3,22 @@
     ViewBag.Title = "AddGameToDB";
     Layout = "~/Views/Shared/_StoredLayout.cshtml";
 }
-Wgrałem nową grę do bazy
 
-            @ViewBag.name
-            @ViewBag.genreid
-            @ViewBag.description
-            @ViewBag.e
+@if (ViewBag.succes != "")
+{
+    @Html.Raw(ViewBag.succes)
+    <br />
+    @ViewBag.name
+    @ViewBag.genreid
+    @ViewBag.description
+    <br />
+    <br />
+}
+else
+{
+    @Html.Raw(ViewBag.error)
+    @ViewBag.e
+}
 
-<h2>AddGameToDB</h2>
+@ViewBag.e
 

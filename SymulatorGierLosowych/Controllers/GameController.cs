@@ -28,19 +28,23 @@ namespace SymulatorGierLosowych.Controllers
             var games = db.Set<Game>();
             games.Add(new Game {GameName = name, GameGenreId = genreid, Description = description });
 
+            ViewBag.name = name;
+            ViewBag.genreid = genreid;
+            ViewBag.description = description;
+
             try
             {
                 db.SaveChanges();
-                ViewBag.name = name;
-                ViewBag.genreid = genreid;
-                ViewBag.description = description;
-                return View();
+                ViewBag.succes = "<br />Wszystko ok, wgrano dane do bazy<br />";
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
+                ViewBag.error = "<br />Ups, kuźwa, jakiś błąd :) <br /> Prawdopodobnie nie wpisałeś wszystkich wymaganych pól. </br> Poniżej kod błędu: <br /><br />";
                 ViewBag.e = e;
+                ViewBag.succes = "";
                 return View(e);
             }
+            return View();
         }
 
         public ActionResult AddNewGame()
