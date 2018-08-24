@@ -1,0 +1,18 @@
+﻿@model SymulatorGierLosowych.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_StoredLayout.cshtml";
+}
+
+<h2>List</h2>
+
+
+<br />
+tutaj powinno coś pisać @ViewBag.numer
+<br />
+@foreach (var g in Model.Games)
+{
+    <li>
+        <a href="@Url.Action("List", "Game", new { viewname = g.GameName })">@g.GameName</a>
+    </li>
+}

@@ -7,13 +7,13 @@ namespace SymulatorGierLosowych.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class nowamigracja : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(nowamigracja));
         
         string IMigrationMetadata.Id
         {
-            get { return "201808220949251_InitialCreate"; }
+            get { return "201808240537460_nowa-migracja"; }
         }
         
         string IMigrationMetadata.Source

@@ -10,5 +10,7 @@ namespace SymulatorGierLosowych.ViewModels
     {
         public IEnumerable<GameGenre> GameGenres { get; set; }
 
+        public IEnumerable<Game> Games { get; set; }
+
     }
 }

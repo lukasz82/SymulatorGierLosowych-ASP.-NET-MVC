@@ -1,5 +1,6 @@
 ﻿using SymulatorGierLosowych.DAL;
 using SymulatorGierLosowych.Models;
+using SymulatorGierLosowych.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,15 @@ namespace SymulatorGierLosowych.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            var genres = db.GameGenres;
+            var genres = db.GameGenres.ToList();
+            //var genres = db.GameGenres.Where(g => g.GenreName == "Lotto").OrderByDescending(a => a.GenreName).ToList();
 
-            return View();
+            var vm = new HomeViewModel()
+            {
+                GameGenres = genres
+            };
+
+            return View(vm);
         }
 
         // GET: Home

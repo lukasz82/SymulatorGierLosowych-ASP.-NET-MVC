@@ -155,17 +155,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808220949251_InitialCreate.cs" />
-    <Compile Include="Migrations\201808220949251_InitialCreate.Designer.cs">
-      <DependentUpon>201808220949251_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808221020110_ShortDescription.cs" />
-    <Compile Include="Migrations\201808221020110_ShortDescription.Designer.cs">
-      <DependentUpon>201808221020110_ShortDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201808230825418_AddedGamesList.cs" />
-    <Compile Include="Migrations\201808230825418_AddedGamesList.Designer.cs">
-      <DependentUpon>201808230825418_AddedGamesList.cs</DependentUpon>
+    <Compile Include="Migrations\201808240537460_nowa-migracja.cs" />
+    <Compile Include="Migrations\201808240537460_nowa-migracja.Designer.cs">
+      <DependentUpon>201808240537460_nowa-migracja.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DuzyLotek.cs" />
@@ -189,6 +181,8 @@
     <Content Include="Views\Shared\_StoredLayout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\DuzyLotek\DuzyLotek.cshtml" />
+    <Content Include="Views\Game\List.cshtml" />
+    <Content Include="Views\Game\AddNewGame.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -200,14 +194,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808220949251_InitialCreate.resx">
-      <DependentUpon>201808220949251_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808221020110_ShortDescription.resx">
-      <DependentUpon>201808221020110_ShortDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201808230825418_AddedGamesList.resx">
-      <DependentUpon>201808230825418_AddedGamesList.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201808240537460_nowa-migracja.resx">
+      <DependentUpon>201808240537460_nowa-migracja.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

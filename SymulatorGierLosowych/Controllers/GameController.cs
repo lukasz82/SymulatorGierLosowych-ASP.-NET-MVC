@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SymulatorGierLosowych.DAL;
+using SymulatorGierLosowych.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +10,7 @@ namespace SymulatorGierLosowych.Controllers
 {
     public class GameController : Controller
     {
+        private StoreContex db = new StoreContex();
         // GET: Game
         public ActionResult Index()
         {
@@ -19,9 +22,29 @@ namespace SymulatorGierLosowych.Controllers
             return View();
         }
 
-        public ActionResult List(string gamename)
+        public ActionResult AddGameToDB(string name, int genreid, string description)
         {
             return View();
+        }
+
+        public ActionResult AddNewGame()
+        {
+            return View();
+        }
+
+        public ActionResult List(int id)
+        {
+
+            var games = db.Games.Where(q => q.GameGenreId == id).ToList();
+            //var genres = db.GameGenres.Where(g => g.GenreName == "Lotto").OrderByDescending(a => a.GenreName).ToList();
+
+            var vm = new HomeViewModel()
+            {
+                Games = games
+            };
+            ViewBag.numer = id;
+            return View(vm);
+            //return View();
         }
     }
 }

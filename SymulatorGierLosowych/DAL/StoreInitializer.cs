@@ -43,7 +43,7 @@ namespace SymulatorGierLosowych.DAL
                 new Game() {GameID = 7, GameName = "Kierki", GameGenreId = 3, Description = "Gra w brydża, opis"},
             };
             //contex.Database.ExecuteSqlCommand("TRUNCATE TABLE [GameGenre]");
-            games.ForEach(g => contex.Games.AddOrUpdate(g));
+            games.ForEach(p => contex.Games.AddOrUpdate(p));
             contex.SaveChanges();
         }
     }

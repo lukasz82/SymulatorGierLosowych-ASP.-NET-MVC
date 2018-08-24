@@ -1,9 +1,15 @@
-﻿
+﻿@model SymulatorGierLosowych.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_StoredLayout.cshtml";
 }
 
-<h2>Index2</h2>
+<p>Wybierz Gatunek gry z listy aby wyświetlić gry tylko z danego gatunku.</p>
 
-Moja storna
+
+@foreach (var g in Model.GameGenres)
+{
+    <li>
+        <a href="@Url.Action("List", "Game", new { id = g.GameGenreId })">@g.GenreName</a>
+    </li>
+}

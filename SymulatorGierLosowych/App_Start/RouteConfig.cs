@@ -12,7 +12,6 @@ namespace SymulatorGierLosowych
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
             // Router dotyczący szczegółów gry
             routes.MapRoute(
                 name: "GameDetalis",
@@ -27,13 +26,14 @@ namespace SymulatorGierLosowych
                 defaults: new { controller = "Home", action = "StaticContent" }
             );
 
-            // Router wczytujący listę gier
+
+            //Router wczytujący listę gier
             routes.MapRoute(
                 name: "GamesList",
-                url: "gry/{gamename}",
-                defaults: new { controller = "Game", action = "List" },
-                // \w - tylko znaki alfanumeryczne, &-end i spacje(puste pole)
-                constraints: new {gamename = @"[\w& ]+"}
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Game", action = "List" }
+            // \w - tylko znaki alfanumeryczne, &-end i spacje(puste pole)
+            // constraints: new {gamename = @"[\w& ]+"}
             );
 
             routes.MapRoute(
