@@ -29,8 +29,14 @@ function GetNumber() {
         url: "@Url.Action("GetNumber", "DuzyLotek")",
         success:function(data)
         {
-            console.log(data);
-            $('#dat').html(data);
+            console.log(data.length);
+            var result;
+            for (var i = 0; i<data.length; i++)
+            {
+                result = result + data[i].num_of_numbers +" "+ data[i].name + "<br />"; 
+            }
+
+            $('#dat').html(result);
         },
         error: function (error) {
             $('#dat').html("jakiś błąd");

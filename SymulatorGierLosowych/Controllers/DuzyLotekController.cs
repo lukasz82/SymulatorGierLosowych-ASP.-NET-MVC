@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SymulatorGierLosowych.MyCalsses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,8 +19,12 @@ namespace SymulatorGierLosowych.Controllers
         [HttpGet]
         public JsonResult GetNumber()
         {
-            int x = 1234;
-            return Json(x, JsonRequestBehavior.AllowGet);
+            List<GeneratorModel> list = new List<GeneratorModel>();
+            for (int i = 0; i < 100; i++)
+            {
+                list.Add(new GeneratorModel { num_of_numbers = i, name = "nowe" });
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
     }
