@@ -5,4 +5,66 @@
 }
 
 <h2>DuzyLotek</h2>
+<div id="myDiv">test</div>
+<div id="dat">naciśnij</div>
+@{
+    int how_many_games = 10;
+}
 
+<script>
+    var games = @how_many_games;
+</script>
+
+<div>
+        <input id="btnGetTime" type="button" value="games"
+               onclick="GetNumber()" />
+
+</div>
+
+
+<script type="text/javascript">
+function GetNumber() {
+    $.ajax({
+        type: "GET",
+        url: "@Url.Action("GetNumber", "DuzyLotek")",
+        success:function(data)
+        {
+            console.log(data);
+            $('#dat').html(data);
+        },
+        error: function (error) {
+            $('#dat').html("jakiś błąd");
+        }
+    });
+}
+
+</script>
+
+
+@{int counter = 2;
+    for (int i = 1; i <= 49; i++)
+    {
+        if (counter != 11)
+        {
+            <div id="number-@i" style="float:left; width:30px; text-align:right">@i</div>
+        }
+
+        if (counter == 11)
+        {
+            <div id="number-@i" style="float:left; width:30px; text-align:right">@i</div>
+            <br />
+            counter = 1;
+        }
+        counter++;
+    }
+}
+<script type="text/javascript">
+    let zmienna = "jakiś tekst";
+    $("#myDiv").css("border", "3px solid red");
+    $("#myDiv").html(zmienna);
+
+    $("#dat").click(function () {
+        $("#myDiv").html(games);
+    });
+
+</script>

@@ -36,6 +36,15 @@ namespace SymulatorGierLosowych
             // constraints: new {gamename = @"[\w& ]+"}
             );
 
+            //Router wczytujący listę gier
+            routes.MapRoute(
+                name: "DuzyLotek",
+                url: "{controller}/{action}",
+                defaults: new { controller = "DuzyLotek", action = "Index" }
+            // \w - tylko znaki alfanumeryczne, &-end i spacje(puste pole)
+            // constraints: new {gamename = @"[\w& ]+"}
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
