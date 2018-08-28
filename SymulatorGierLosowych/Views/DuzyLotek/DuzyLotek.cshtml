@@ -5,19 +5,107 @@
 }
 
 <h2>DuzyLotek</h2>
-<div>
-    <input id="btnGetTime" type="button" value="games" onclick="GetNumber()" />
-</div>
+
+    Podaj ilość losów, nie może być więcej niż 100<br>
+
+    <input type="number" placeholder="1" min="0" max="100" name="playslip" id="numbers">
+    <input type="button" onclick="GetNumberOfPlayslip('button')" name="button" value="Akceptuj">
+    <input type="button" onclick="GetNumberOfPlayslip('+')" name="+" value="+">
+    <input type="button" onclick="GetNumberOfPlayslip('-')" name="-" value="-">
+    <br /><br />
+    <div id="res"></div>
+    <br />
+    <script type="text/javascript">
+        let count = 1;
+        count = $("#numbers").val();
+        let quantity = "";
+
+        function GetNumberOfPlayslip(input)
+        {
+            if (input == "+")
+            {
+                count++;
+                RenderCoupon(count);
+                exit;
+            }
+            if (input == "-")
+            {
+                count--;
+                RenderCoupon(count);
+                exit;
+            }
+
+            if (input == "button")
+            {
+                count = $("#numbers").val();
+                RenderCoupon(count);
+                exit;
+            }
+        }
+
+        function RenderCoupon(quantity)
+        {
+            count = quantity;
+            if (count < 100 & count >= 0) 
+            {
+                var res = "";
+                var n = "";
+                n += '<div style="float:left;">';
+                for (var j = 1; j <= count; j++)
+                {
+                    var counter = 2;
+                    n += '<div style="float:left;">';
+                    for (var i = 1; i <= 49; i++)
+                    {
+                        //n = n + "<div> Hej co to jest?" + 100 + i + "</div>";
+                        if (counter != 11)
+                        {
+                            n += '<div class="btn-group" id="number-' + j + i + '" style="float:left; width:30px; text-align:right">' + i + '</div>';
+                        }
+
+                        if (counter == 11)
+                        {
+                            n += '<div class="btn-group" id="number-' + j + i + '" style="float:left; width:30px; text-align:right">' + i + '</div>';
+                            n += '<div style="float:left; width:30px;"></div>';
+                            n += '<br />';
+                            counter = 1;
+                        }
+                        counter++;
+                    }
+                    n += '<br /><br />';
+                    n += '</div>';
+                }
+                res = res + n;
+                
+            }
+            n += '</div>';
+            $("#numbers").val(count);
+            $("#res").html(res);
+            
+            exit;
+        }
+    </script>
+
 <br />
-<div id="myDiv">test</div>
+<!-- <div id="myDiv">test</div -->
 <br />
 
-@{
+@*@{
     int how_many_games = 10;
 }
 
-@{
+<script>
+    var games = @how_many_games;
+</script>*@
+
+
+@*<div>
+        <input id="btnGetTime" type="button" value="games" onclick="GetNumber()" />
+</div>*@
+
+@*@{
     @:<div style="float:left;">
+    // Walidacja wpisanej wartości
     for (int j = 0; j < 10; j++)
     {
         int counter = 2;
@@ -31,8 +119,8 @@
 
             if (counter == 11)
             {
-        <div class="btn-group" id="number-@i" style="float:left; width:30px; text-align:right">@i</div>
-        @:<div style="float:left; width:30px;"></div>
+                <div class="btn-group" id="number-@i" style="float:left; width:30px; text-align:right">@i</div>
+                @:<div style="float:left; width:30px;"></div>
                     <br />
                 counter = 1;
             }
@@ -42,17 +130,15 @@
         @:</div>
     }
     @:</div>
-}
+}*@
 <br />
 
-<div id="dat">naciśnij</div>
+@*<div id="dat">naciśnij</div>*@
 
 <br />
 
 
-<script>
-    var games = @how_many_games;
-</script>
+
 
 <script type="text/javascript">
     function GetNumber() {
