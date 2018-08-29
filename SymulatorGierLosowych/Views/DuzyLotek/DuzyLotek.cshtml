@@ -12,10 +12,14 @@
     <input type="button" onclick="GetNumberOfPlayslip('button')" name="button" value="Akceptuj">
     <input type="button" onclick="GetNumberOfPlayslip('+')" name="+" value="+">
     <input type="button" onclick="GetNumberOfPlayslip('-')" name="-" value="-">
+    <div id="id_number"></div>
     <br /><br />
     <div id="res"></div>
     <br />
     <script type="text/javascript">
+
+
+
         let count = 1;
         count = $("#numbers").val();
         let quantity = "";
@@ -26,20 +30,20 @@
             {
                 count++;
                 RenderCoupon(count);
-                exit;
+                return;
             }
             if (input == "-")
             {
                 count--;
                 RenderCoupon(count);
-                exit;
+                return;
             }
 
             if (input == "button")
             {
                 count = $("#numbers").val();
                 RenderCoupon(count);
-                exit;
+                return;
             }
         }
 
@@ -60,12 +64,12 @@
                         //n = n + "<div> Hej co to jest?" + 100 + i + "</div>";
                         if (counter != 11)
                         {
-                            n += '<div class="btn-group" id="number-' + j + i + '" style="float:left; width:30px; text-align:right">' + i + '</div>';
+                            n += '<div class="number" type="button" id="' + j + "|" + i + '" style="float:left; width:30px; text-align:right; cursor: pointer;" >' + i + '</div>';
                         }
 
                         if (counter == 11)
                         {
-                            n += '<div class="btn-group" id="number-' + j + i + '" style="float:left; width:30px; text-align:right">' + i + '</div>';
+                            n += '<div class="number" type="button" id="' + j + "|" + i + '" style="float:left; width:30px; text-align:right; cursor: pointer;">' + i + '</div>';
                             n += '<div style="float:left; width:30px;"></div>';
                             n += '<br />';
                             counter = 1;
@@ -81,9 +85,80 @@
             n += '</div>';
             $("#numbers").val(count);
             $("#res").html(res);
-            
-            exit;
         }
+
+        let tab = [];
+        let coupons_quantity = [];
+
+        // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
+        $('body').on('click', '.number', function ()
+        {
+            // CSS - zaznaczenie na kolor niebieski elementu
+            $('.number').css("background-color", "");
+            $(this).css("background-color", "#b3d7ff");
+
+            // Zczytanie wartości Id zaznaczonego <div> 
+            var id = $(this).attr('id');
+            $('#id_number').html('Id wynosi: ' + id);
+
+            // Dodanie zaznaczonych liczb do tablicy
+            // zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
+            if (tab.indexOf(id) == -1)
+            {
+                // Zliczanie ilości wylosowanych numerów (zabezpieczenie żeby nie było wiecej niż 6)
+                var count = {};
+                tab.forEach(function (i) { count[i] = (count[i] || 0) + 1; });
+                console.log(count);
+
+                tab.push(id);
+                
+                // Szukanie ilości wprowadzonych liczb w danym losie
+                var coupon_count = 0;
+                var res = [];
+                for (var i = 0; i < tab.length; i++)
+                {
+                    res.push(tab[i].split("|"));
+                }
+
+                // przeszukuję tablicę w celu zliczenia wystąpień ilości zaznaczonych liczb na poszczególnych kuponach
+                var max = res.length;
+                console.log('res: ' + res);
+                console.log('max: ' + max)
+                for (var i = 1; i <= max; i++)
+                {
+                    for (var j = 0; j < max; j = j + 2)
+                    {
+                        //if (i == res[j])
+                        //{
+                            console.log('i jest rownowazne res[j] : i = ' + i + 'res[j] = ' + res[j]);
+                            coupon_count++;
+                        //}
+                    }
+                    console.log(coupon_count);
+                    coupons_quantity.push('coupon_count : ' + coupon_count);
+                    coupon_count = 0;
+                }
+
+               // console.log('cup_quan : ' + coupons_quantity);
+
+
+                //for (var j = 0; j < coupons_quantity.length; j++) {
+                //    console.log('ile w indeksie' + j + ' : ' + coupons_quantity[j]);
+                //}
+            } 
+            else if (tab.indexOf(id) == 1)
+            {
+                return;
+            }
+
+            //for (var i = 0; i < coupons_quantity.length; i++)
+            //{
+            //    console.log('coup_quant : ' + coupons_quantity[i] + 'przy i = ' + i);
+            //}
+            console.log('Id równa się = ' + id);
+            console.log('tablica = ' + tab);
+        });
+
     </script>
 
 <br />
@@ -176,5 +251,33 @@
     $("#dat").click(function () {
         $("#myDiv").html(games);
     });
+
+</script>
+
+<script type="text/javascript">
+
+    //$(document).ready(function () { // czeka aż dokument zostanie wczytany
+
+    //$(".btn-group").on("click", function () {
+    //    $(this).css("background", "red");
+    //    var id = $(this).attr('id');
+    //    console.log('Id równa się = ' + id);
+    //});
+
+
+
+        //$(".btn-group").click(function () {
+        //    var id = $(this).attr('id');
+        //    console.log('Id równa się = ' + id);
+        //    $(this).toggleClass("green");
+        //});
+
+    //});
+
+
+
+
+
+
 
 </script>

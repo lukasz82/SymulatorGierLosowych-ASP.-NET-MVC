@@ -112,3 +112,6 @@ list-style-type: none;
         width: 100%;
     }
 }
+
+.number- { background-color: #336699; }
+.number-:hover, .place.green { background-color: #00cc00; }
