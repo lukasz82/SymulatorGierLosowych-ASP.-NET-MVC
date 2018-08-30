@@ -105,6 +105,7 @@
             // zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
             if (tab.indexOf(id) == -1)
             {
+                console.clear();
                 // Zliczanie ilości wylosowanych numerów (zabezpieczenie żeby nie było wiecej niż 6)
                 var count = {};
                 tab.forEach(function (i) { count[i] = (count[i] || 0) + 1; });
@@ -113,32 +114,53 @@
                 tab.push(id);
                 
                 // Szukanie ilości wprowadzonych liczb w danym losie
-                var coupon_count = 0;
+                
                 var res = [];
                 for (var i = 0; i < tab.length; i++)
                 {
-                    res.push(tab[i].split("|"));
+                    //res.push(tab[i].split("|"));
+
+                    var new_res = tab[i].split(/(|)/);
+                    res.push(new_res[0]);
+                    console.log('new res' + new_res);
+
                 }
 
                 // przeszukuję tablicę w celu zliczenia wystąpień ilości zaznaczonych liczb na poszczególnych kuponach
                 var max = res.length;
+                var coupon_count = 0;
                 console.log('res: ' + res);
-                console.log('max: ' + max)
-                for (var i = 1; i <= max; i++)
+                console.log('max: ' + max);
+                var flag = false;
+
+                // Zerowanie tablicy coupons_quantity
+                for (var j = 0; j <= quantity; j++)
                 {
-                    for (var j = 0; j < max; j = j + 2)
-                    {
-                        //if (i == res[j])
-                        //{
-                            console.log('i jest rownowazne res[j] : i = ' + i + 'res[j] = ' + res[j]);
-                            coupon_count++;
-                        //}
-                    }
-                    console.log(coupon_count);
-                    coupons_quantity.push('coupon_count : ' + coupon_count);
-                    coupon_count = 0;
+                    coupons_quantity[j] = 0;
                 }
 
+                console.log('zerowanie' + coupons_quantity);
+
+
+                // Analizowanie tablicy w celu wyłapania ilości klikniętych 
+                for (var i = 1; i <= max; i++)
+                {
+                    for (var j = 0; j < max; j++)
+                    {
+                        if (i == res[j])
+                        {
+                            console.log('i jest rownowazne res[j] : i = ' + i + 'res[j] = ' + res[j]);
+                            coupon_count++;
+                        }
+                    }
+
+                    if (coupon_count > 0) {
+                        coupons_quantity[i] = coupon_count;
+                    }
+                    coupon_count = 0;
+                }
+                console.log('coupon count : ' + coupons_quantity);
+                
                // console.log('cup_quan : ' + coupons_quantity);
 
 
