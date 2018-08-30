@@ -16,6 +16,8 @@
     <br /><br />
     <div id="res"></div>
     <br />
+    <div id="max"></div>
+    <br />
     <script type="text/javascript">
 
 
@@ -89,7 +91,10 @@
 
         let tab = [];
         let coupons_quantity = [];
-
+        let coupons_quantity_copy = [];
+        let flag = false;
+        // Maksymlana ilość liczb na kuponie
+        let max_numbers_on_the_coupon = 6;
         // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
         $('body').on('click', '.number', function ()
         {
@@ -106,10 +111,11 @@
             if (tab.indexOf(id) == -1)
             {
                 console.clear();
+
                 // Zliczanie ilości wylosowanych numerów (zabezpieczenie żeby nie było wiecej niż 6)
                 var count = {};
                 tab.forEach(function (i) { count[i] = (count[i] || 0) + 1; });
-                console.log(count);
+                console.log('ilosc numerow' + count);
 
                 tab.push(id);
                 
@@ -160,25 +166,26 @@
                     coupon_count = 0;
                 }
                 console.log('coupon count : ' + coupons_quantity);
-                
-               // console.log('cup_quan : ' + coupons_quantity);
-
-
-                //for (var j = 0; j < coupons_quantity.length; j++) {
-                //    console.log('ile w indeksie' + j + ' : ' + coupons_quantity[j]);
-                //}
             } 
             else if (tab.indexOf(id) == 1)
             {
                 return;
             }
 
-            //for (var i = 0; i < coupons_quantity.length; i++)
-            //{
-            //    console.log('coup_quant : ' + coupons_quantity[i] + 'przy i = ' + i);
-            //}
             console.log('Id równa się = ' + id);
             console.log('tablica = ' + tab);
+
+            var message = "";
+            for (var j = 0; j <= coupons_quantity.length; j++)
+            {
+                console.log('analiza : j = ' + j + ' tablica = ' + coupons_quantity[j])
+                if (coupons_quantity[j] > max_numbers_on_the_coupon)
+                {
+                    message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
+                }
+                $('#max').html(message);
+            }
+
         });
 
     </script>
