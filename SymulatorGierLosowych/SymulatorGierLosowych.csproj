@@ -139,6 +139,8 @@
   <ItemGroup>
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\ReturnExceedingNumbersToTable.js" />
+    <Content Include="Scripts\SeparationOfNumbersByATab.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

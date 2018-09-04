@@ -4,6 +4,9 @@
     Layout = "~/Views/Shared/_StoredLayout.cshtml";
 }
 
+<script src="~/Scripts/SeparationOfNumbersByATab.js"></script>
+<script src="~/Scripts/ReturnExceedingNumbersToTable.js"></script>
+
 <h2>DuzyLotek</h2>
 
     Podaj ilość losów, nie może być więcej niż 100<br>
@@ -21,8 +24,6 @@
     
     <br />
     <script type="text/javascript">
-
-
 
         let count = 1;
         count = $("#numbers").val();
@@ -91,12 +92,13 @@
             $("#res").html(res);
         }
 
-        let tab_of_div_indexs = [];
-        let coupons_quantity = [];
+        let tabOfDivIndexs = [];
         let coupons_quantity_copy = [];
         let flag = false;
+        let resTable = [];
         // Maksymlana ilość liczb na kuponie
-        let max_numbers_on_the_coupon = 6;
+        let maxNumbersOnTheCoupon = 6;
+
         // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
         $('body').on('click', '.number', function ()
         {
@@ -110,123 +112,52 @@
 
             // Dodanie zaznaczonych liczb do tablicy
             // zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
-            if (tab_of_div_indexs.indexOf(id) == -1)
+            if (tabOfDivIndexs.indexOf(id) == -1)
             {
                 console.clear();
-
-                // Zliczanie ilości wylosowanych numerów (zabezpieczenie żeby nie było wiecej niż 6)
-                //var count = {};
-                //tab.forEach(function (i) { count[i] = (count[i] || 0) + 1; });
-                //console.log('ilosc numerow' + count);
-
-                tab_of_div_indexs.push(id);
-                
+                tabOfDivIndexs.push(id);
 
                 // Szukanie ilości wprowadzonych liczb w danym losie
                 
                 var res = [];
 
                 // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
-                for (var i = 0; i < tab_of_div_indexs.length; i++)
+                for (var i = 0; i < tabOfDivIndexs.length; i++)
                 {
-                    //res.push(tab_of_div_indexs[i].split("|"));
+                    //res.push(tabOfDivIndexs[i].split("|"));
 
-                    var new_res = tab_of_div_indexs[i].split(/(|)/);
+                    var new_res = tabOfDivIndexs[i].split(/(|)/);
                     res.push(new_res[0]);
                     console.log('new res' + new_res);
 
                 }
 
-                function SeparationOfNumbersByATab(table, whichTableToReturn)
-                {
-                    var numbersTab = [];
-                    var couponsTab = [];
-                    for (var i = 0; i < table.length; i++)
-                    {
-                        var string = table[i];
-                        var isTab = false;
-                        var couponNumber = '';
-                        var number = '';
-                        for (var j = 0; j <= string.length; j++)
-                        {
-                            if (string[j] == '|')
-                            {
-                                couponsTab.push(couponNumber);
-                                couponNumber = '';
-                                isTab = true;
-                                continue;
-                            }
+                console.log('tablica 1 - numery: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 1));
+                console.log('tablica 2 - kupony: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 2));
 
-                            if (j == string.length)
-                            {
-                                numbersTab.push(number);
-                                number = '';
-                                isTab = false;
-                            }
-                                
-                            if (isTab == false) couponNumber += string[j];
-                            if (isTab == true) number += string[j];
-
-                            //console.log('string' + string[j]);
-                        }
-
-                    }
-                    if (whichTableToReturn == 2) return couponsTab;
-                    if (whichTableToReturn == 1) return numbersTab;
-                    
-                }
-
-                console.log('tablica 1 : ' + SeparationOfNumbersByATab(tab_of_div_indexs, 1));
-                console.log('tablica 2 : ' + SeparationOfNumbersByATab(tab_of_div_indexs, 2));
-
+                resTable = SeparationOfNumbersByATab(tabOfDivIndexs, 2);
+                console.log('res table : ' + resTable);
                 // przeszukuję tablicę w celu zliczenia wystąpień ilości zaznaczonych liczb na poszczególnych kuponach
-                var max = res.length;
-                var coupon_count = 0;
-                console.log('res: ' + res);
-                console.log('max: ' + max);
-                var flag = false;
 
-                // Zerowanie tablicy coupons_quantity
-                for (var j = 0; j <= quantity; j++)
-                {
-                    coupons_quantity[j] = 0;
-                }
-
-                console.log('zerowanie' + coupons_quantity);
-
-
-                // Analizowanie tablicy w celu wyłapania ilości klikniętych 
-                for (var i = 1; i <= max; i++)
-                {
-                    for (var j = 0; j < max; j++)
-                    {
-                        if (i == res[j])
-                        {
-                            console.log('i jest rownowazne res[j] : i = ' + i + 'res[j] = ' + res[j]);
-                            coupon_count++;
-                        }
-                    }
-
-                    if (coupon_count > 0) {
-                        coupons_quantity[i] = coupon_count;
-                    }
-                    coupon_count = 0;
-                }
-                console.log('coupon count : ' + coupons_quantity);
-            } 
-            else if (tab_of_div_indexs.indexOf(id) == 1)
+            }
+            else if (tabOfDivIndexs.indexOf(id) == 1)
             {
                 return;
             }
 
             console.log('Id równa się = ' + id);
-            console.log('tablica = ' + tab_of_div_indexs);
+            console.log('tablica = ' + tabOfDivIndexs);
+
+            console.log('res table 2 : ' + resTable);
+
+            let couponsQuantity = ReturnExceedingNumbersToTable(resTable);
+            console.log('coupons quantity : ' + couponsQuantity);
 
             var message = "";
-            for (var j = 0; j <= coupons_quantity.length; j++)
+            for (var j = 0; j <= couponsQuantity.length; j++)
             {
-                console.log('analiza : j = ' + j + ' tablica = ' + coupons_quantity[j])
-                if (coupons_quantity[j] > max_numbers_on_the_coupon)
+                console.log('analiza : j = ' + j + ' tablica = ' + couponsQuantity[j])
+                if (couponsQuantity[j] > maxNumbersOnTheCoupon)
                 {
                     message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
                 }
