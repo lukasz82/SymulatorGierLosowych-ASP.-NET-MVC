@@ -1,4 +1,5 @@
-﻿using SymulatorGierLosowych.MyCalsses;
+﻿using SymulatorGierLosowych.ClassOfGenerators;
+using SymulatorGierLosowych.MyCalsses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,19 @@ namespace SymulatorGierLosowych.Controllers
                 list.Add(new GeneratorModel { num_of_numbers = i, name = "nowe" });
             }
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult GetNumbers()
+        {
+            RandomNumbersGenerator numberGenerator = new RandomNumbersGenerator();
+
+            //int number = numberGenerator.ReturnSingleNumber();
+            //return Json(number, JsonRequestBehavior.AllowGet);
+            
+            Stack<int> table = numberGenerator.ReturnNumbers(6);
+            return Json(table, JsonRequestBehavior.AllowGet);
         }
 
     }

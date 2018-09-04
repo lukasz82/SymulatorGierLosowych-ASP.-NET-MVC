@@ -21,7 +21,10 @@
     <br /><br />
     <div id="res"></div>
     <br />
-    
+    <input type="button" onclick="GetNumbers()" name="getnumbers" value="getnumbers">
+    <br />
+    Wylosowane liczby
+    <div id="dat"></div>
     <br />
     <script type="text/javascript">
 
@@ -118,23 +121,11 @@
                 tabOfDivIndexs.push(id);
 
                 // Szukanie ilości wprowadzonych liczb w danym losie
-                
-                var res = [];
-
-                // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
-                for (var i = 0; i < tabOfDivIndexs.length; i++)
-                {
-                    //res.push(tabOfDivIndexs[i].split("|"));
-
-                    var new_res = tabOfDivIndexs[i].split(/(|)/);
-                    res.push(new_res[0]);
-                    console.log('new res' + new_res);
-
-                }
-
+ 
                 console.log('tablica 1 - numery: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 1));
                 console.log('tablica 2 - kupony: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 2));
 
+                // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
                 resTable = SeparationOfNumbersByATab(tabOfDivIndexs, 2);
                 console.log('res table : ' + resTable);
                 // przeszukuję tablicę w celu zliczenia wystąpień ilości zaznaczonych liczb na poszczególnych kuponach
@@ -222,7 +213,7 @@
 
 
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     function GetNumber() {
         $.ajax({
             type: "GET",
@@ -235,6 +226,40 @@
                 for (var i = 1; i<data.length; i++)
                 {
                     result = result + data[i].num_of_numbers +" "+ data[i].name + "<br />";
+                }
+
+                $('#dat').html(result);
+                console.log(result);
+            },
+            error: function (error) {
+                $('#dat').html("jakiś błąd");
+            }
+        });
+    }
+
+</script>*@
+
+
+<script type="text/javascript">
+    function GetNumbers() {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetNumbers", "DuzyLotek")",
+            success:function(data)
+            {
+                console.log('wielkosc tablicy ' + data.length);
+                console.log('tablica ' + data);
+                var result = "";
+                var dLenght = data.length;
+
+                for (var i = 0; i < dLenght; i++)
+                {
+                    if (i == dLenght - 1)
+                    {
+                        result = result + data[i];
+                        break;
+                    }
+                    result = result + data[i] + " , ";
                 }
 
                 $('#dat').html(result);

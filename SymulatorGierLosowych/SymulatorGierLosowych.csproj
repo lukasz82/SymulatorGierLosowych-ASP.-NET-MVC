@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="ClassOfGenerators\RandomNumbersGenerator.cs" />
     <Compile Include="Controllers\DuzyLotekController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -167,7 +168,7 @@
     <Compile Include="Models\GamePlayedDetails.cs" />
     <Compile Include="Models\GamesPlayed.cs" />
     <Compile Include="Models\GameGenre.cs" />
-    <Compile Include="MyCalsses\GeneratorModel.cs" />
+    <Compile Include="ClassOfGenerators\GeneratorModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
   </ItemGroup>
