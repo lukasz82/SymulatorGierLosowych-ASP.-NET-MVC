@@ -12,14 +12,25 @@ namespace SymulatorGierLosowych.ClassOfGenerators
         private int number;
         Stack<int> numbers = new Stack<int>();
 
-        public Stack<int> ReturnNumbers(int howManyNumbers)
+        public int [] ReturnNumbers(int howManyNumbers)
         {
             for (int i = 1; i <= howManyNumbers; i++)
             {
-                number = rnd.Next(1, 49);
+                // Przy pierwszym wejściu losuje po prostu numer
+                if (numbers.Count == 0)
+                {
+                    number = rnd.Next(1, 49);
+                }
+                
+                // Zabezpieczenie przed duplikowaniem się numerów
+                while (numbers.Contains(number))
+                {
+                    number = rnd.Next(1, 49);
+                }
                 numbers.Push(number);
             }   
-            return numbers;
+            var numbersSorted = numbers.OrderBy(num => num).ToArray();
+            return numbersSorted;
         }
 
         public int ReturnSingleNumber()

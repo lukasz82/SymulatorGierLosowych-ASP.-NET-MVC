@@ -33,11 +33,8 @@ namespace SymulatorGierLosowych.Controllers
         public JsonResult GetNumbers()
         {
             RandomNumbersGenerator numberGenerator = new RandomNumbersGenerator();
-
-            //int number = numberGenerator.ReturnSingleNumber();
-            //return Json(number, JsonRequestBehavior.AllowGet);
-            
-            Stack<int> table = numberGenerator.ReturnNumbers(6);
+           
+            var table = numberGenerator.ReturnNumbers(6);
             return Json(table, JsonRequestBehavior.AllowGet);
         }
 
