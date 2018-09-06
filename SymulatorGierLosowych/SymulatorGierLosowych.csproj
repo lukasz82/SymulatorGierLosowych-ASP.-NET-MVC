@@ -139,6 +139,7 @@
   <ItemGroup>
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\RenderCoupn.js" />
     <Content Include="Scripts\ReturnExceedingNumbersToTable.js" />
     <Content Include="Scripts\ClickedCouponNumber.js" />
     <Content Include="Scripts\SeparationOfNumbersByATab.js" />
@@ -189,6 +190,7 @@
     <Content Include="Views\Game\List.cshtml" />
     <Content Include="Views\Game\AddNewGame.cshtml" />
     <Content Include="Views\Game\AddGameToDB.cshtml" />
+    <Content Include="Views\Examples\AjaxExample.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

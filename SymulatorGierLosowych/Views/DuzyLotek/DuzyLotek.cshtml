@@ -7,6 +7,7 @@
 <script src="~/Scripts/SeparationOfNumbersByATab.js"></script>
 <script src="~/Scripts/ReturnExceedingNumbersToTable.js"></script>
 <script src="~/Scripts/ClickedCouponNumber.js"></script>
+<script src="~/Scripts/RenderCoupn.js"></script>
 
 <h2>DuzyLotek</h2>
 
@@ -27,73 +28,36 @@
     Wylosowane liczby
     <div id="dat"></div>
     <br />
+
     <script type="text/javascript">
 
         let count = 1;
         count = $("#numbers").val();
         let quantity = "";
+        var numbersDiv = $("#numbers");
+        var resDiv = $("#res");
 
         function GetNumberOfPlayslip(input)
         {
             if (input == "+")
             {
                 count++;
-                RenderCoupon(count);
+                RenderCoupon(count,numbersDiv,resDiv);
                 return;
             }
             if (input == "-")
             {
                 count--;
-                RenderCoupon(count);
+                RenderCoupon(count, numbersDiv, resDiv);
                 return;
             }
 
             if (input == "button")
             {
                 count = $("#numbers").val();
-                RenderCoupon(count);
+                RenderCoupon(count, numbersDiv, resDiv);
                 return;
             }
-        }
-
-        function RenderCoupon(quantity)
-        {
-            count = quantity;
-            if (count < 100 & count >= 0) 
-            {
-                var res = "";
-                var n = "";
-                n += '<div style="float:left;">';
-                for (var j = 1; j <= count; j++)
-                {
-                    var counter = 2;
-                    n += '<div style="float:left;">';
-                    for (var i = 1; i <= 49; i++)
-                    {
-                        //n = n + "<div> Hej co to jest?" + 100 + i + "</div>";
-                        if (counter != 11)
-                        {
-                            n += '<div class="number" type="button" id="' + j + "|" + i + '" style="float:left; width:30px; text-align:right; cursor: pointer;" >' + i + '</div>';
-                        }
-
-                        if (counter == 11)
-                        {
-                            n += '<div class="number" type="button" id="' + j + "|" + i + '" style="float:left; width:30px; text-align:right; cursor: pointer;">' + i + '</div>';
-                            n += '<div style="float:left; width:30px;"></div>';
-                            n += '<br />';
-                            counter = 1;
-                        }
-                        counter++;
-                    }
-                    n += '<br /><br />';
-                    n += '</div>';
-                }
-                res = res + n;
-                
-            }
-            n += '</div>';
-            $("#numbers").val(count);
-            $("#res").html(res);
         }
 
         let tabOfDivIndexs = [];
@@ -113,19 +77,20 @@
             var id = $(this).attr('id');
             $('#id_number').html('Id wynosi: ' + id);
 
-            if (couponsQuantity != null)
-            {
-                var message = "";
-                for (var j = 0; j <= couponsQuantity.length; j++)
-                {
-                    console.log('analiza : j = ' + j + ' tablica = ' + couponsQuantity[j])
-                    if (couponsQuantity[j] == maxNumbersOnTheCoupon)
-                    {
-                        message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
-                        couponLimitTable[j] = true;
-                        $(this).css("background-color", "#ffffff");
+            if (couponLimitTable[ClickedCouponNumber(id)] != true) {
+
+                if (couponsQuantity != null) {
+                    var message = "";
+                    for (var j = 0; j <= couponsQuantity.length; j++) {
+                        console.log('analiza : j = ' + j + ' tablica = ' + couponsQuantity[j]);
+                        if (couponsQuantity[j] == maxNumbersOnTheCoupon) {
+                            message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
+                            couponLimitTable[j] = true;
+                            $(this).css("background-color", "#ffffff");
+                            $('#' + j).css("background-color", "#fff6f6");
+                        }
+                        $('#max').html(message);
                     }
-                    $('#max').html(message);
                 }
             }
 
@@ -170,90 +135,6 @@
 
         });
 
-    </script>
-
-<br />
-<!-- <div id="myDiv">test</div -->
-<br />
-
-@*@{
-    int how_many_games = 10;
-}
-
-<script>
-    var games = @how_many_games;
-</script>*@
-
-
-@*<div>
-        <input id="btnGetTime" type="button" value="games" onclick="GetNumber()" />
-</div>*@
-
-@*@{
-    @:<div style="float:left;">
-    // Walidacja wpisanej wartości
-    for (int j = 0; j < 10; j++)
-    {
-        int counter = 2;
-        @:<div style="float:left;">
-        for (int i = 1; i <= 49; i++)
-        {
-            if (counter != 11)
-            {
-                <div class="btn-group" id="number-@i" style="float:left; width:30px; text-align:right">@i</div>
-            }
-
-            if (counter == 11)
-            {
-                <div class="btn-group" id="number-@i" style="float:left; width:30px; text-align:right">@i</div>
-                @:<div style="float:left; width:30px;"></div>
-                    <br />
-                counter = 1;
-            }
-            counter++;
-        }
-        <br /><br />
-        @:</div>
-    }
-    @:</div>
-}*@
-<br />
-
-@*<div id="dat">naciśnij</div>*@
-
-<br />
-
-
-
-
-@*<script type="text/javascript">
-    function GetNumber() {
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetNumber", "DuzyLotek")",
-            success:function(data)
-            {
-                console.log(data.length);
-                console.log(data);
-                var result ="";
-                for (var i = 1; i<data.length; i++)
-                {
-                    result = result + data[i].num_of_numbers +" "+ data[i].name + "<br />";
-                }
-
-                $('#dat').html(result);
-                console.log(result);
-            },
-            error: function (error) {
-                $('#dat').html("jakiś błąd");
-            }
-        });
-    }
-
-</script>*@
-
-
-<script type="text/javascript">
     function GetNumbers() {
         $.ajax({
             type: "GET",
@@ -284,11 +165,6 @@
         });
     }
 
-</script>
-
-
-
-<script type="text/javascript">
     let zmienna = "jakiś tekst";
     $("#myDiv").css("border", "3px solid red");
     $("#myDiv").html(zmienna);
@@ -296,33 +172,4 @@
     $("#dat").click(function () {
         $("#myDiv").html(games);
     });
-
-</script>
-
-<script type="text/javascript">
-
-    //$(document).ready(function () { // czeka aż dokument zostanie wczytany
-
-    //$(".btn-group").on("click", function () {
-    //    $(this).css("background", "red");
-    //    var id = $(this).attr('id');
-    //    console.log('Id równa się = ' + id);
-    //});
-
-
-
-        //$(".btn-group").click(function () {
-        //    var id = $(this).attr('id');
-        //    console.log('Id równa się = ' + id);
-        //    $(this).toggleClass("green");
-        //});
-
-    //});
-
-
-
-
-
-
-
 </script>
