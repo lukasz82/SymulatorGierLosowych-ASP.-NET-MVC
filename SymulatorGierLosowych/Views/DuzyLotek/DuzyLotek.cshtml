@@ -6,6 +6,7 @@
 
 <script src="~/Scripts/SeparationOfNumbersByATab.js"></script>
 <script src="~/Scripts/ReturnExceedingNumbersToTable.js"></script>
+<script src="~/Scripts/ClickedCouponNumber.js"></script>
 
 <h2>DuzyLotek</h2>
 
@@ -96,64 +97,76 @@
         }
 
         let tabOfDivIndexs = [];
-        let coupons_quantity_copy = [];
-        let flag = false;
         let resTable = [];
-        // Maksymlana ilość liczb na kuponie
         let maxNumbersOnTheCoupon = 6;
+        let changeColor = false;
+        // Do tej tablicy zapisuję te kupony w których już wykorzystano maksymalną liczbę klikniętych numerów
+        let couponLimitTable = [];
+        let couponsQuantity;
 
         // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
         $('body').on('click', '.number', function ()
         {
-            // CSS - zaznaczenie na kolor niebieski elementu
-            $('.number').css("background-color", "");
-            $(this).css("background-color", "#b3d7ff");
+            console.clear();
 
             // Zczytanie wartości Id zaznaczonego <div> 
             var id = $(this).attr('id');
             $('#id_number').html('Id wynosi: ' + id);
 
+            if (couponsQuantity != null)
+            {
+                var message = "";
+                for (var j = 0; j <= couponsQuantity.length; j++)
+                {
+                    console.log('analiza : j = ' + j + ' tablica = ' + couponsQuantity[j])
+                    if (couponsQuantity[j] == maxNumbersOnTheCoupon)
+                    {
+                        message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
+                        couponLimitTable[j] = true;
+                        $(this).css("background-color", "#ffffff");
+                    }
+                    $('#max').html(message);
+                }
+            }
+
             // Dodanie zaznaczonych liczb do tablicy
             // zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
             if (tabOfDivIndexs.indexOf(id) == -1)
             {
-                console.clear();
-                tabOfDivIndexs.push(id);
+                // Nie pozwoli by dodać nową liczbę, jeżeli ilość wprowadzonych na kuponie przekroczy maksymalną dopuszczalną
+                if (couponLimitTable[ClickedCouponNumber(id)] != true)
+                {
+                    tabOfDivIndexs.push(id);
 
-                // Szukanie ilości wprowadzonych liczb w danym losie
- 
-                console.log('tablica 1 - numery: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 1));
-                console.log('tablica 2 - kupony: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 2));
+                    // Szukanie ilości wprowadzonych liczb w danym losie
+                    console.log('tablica 1 - numery: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 1));
+                    console.log('tablica 2 - kupony: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 2));
 
-                // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
-                resTable = SeparationOfNumbersByATab(tabOfDivIndexs, 2);
-                console.log('res table : ' + resTable);
-                // przeszukuję tablicę w celu zliczenia wystąpień ilości zaznaczonych liczb na poszczególnych kuponach
+                    // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
+                    resTable = SeparationOfNumbersByATab(tabOfDivIndexs, 2);
+                    console.log('res table : ' + resTable);
 
-            }
-            else if (tabOfDivIndexs.indexOf(id) == 1)
+                    // CSS - zaznaczenie na kolor niebieski elementu
+                    console.log('couponlimit table - ' + couponLimitTable);
+                    if (changeColor == true) {
+                        $(this).css("background-color", "#ffbf80");
+                        changeColor = false;
+                    } else if (changeColor == false) {
+                        $(this).css("background-color", "#b3d7ff");
+                        changeColor = true;
+                    }
+                }
+            } else if (tabOfDivIndexs.indexOf(id) == 1)
             {
                 return;
             }
 
             console.log('Id równa się = ' + id);
             console.log('tablica = ' + tabOfDivIndexs);
-
             console.log('res table 2 : ' + resTable);
 
-            let couponsQuantity = ReturnExceedingNumbersToTable(resTable);
+            couponsQuantity = ReturnExceedingNumbersToTable(resTable);
             console.log('coupons quantity : ' + couponsQuantity);
-
-            var message = "";
-            for (var j = 0; j <= couponsQuantity.length; j++)
-            {
-                console.log('analiza : j = ' + j + ' tablica = ' + couponsQuantity[j])
-                if (couponsQuantity[j] > maxNumbersOnTheCoupon)
-                {
-                    message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
-                }
-                $('#max').html(message);
-            }
 
         });
 

@@ -113,5 +113,6 @@ list-style-type: none;
     }
 }
 
-.number- { background-color: #336699; }
-.number-:hover, .place.green { background-color: #00cc00; }
+.number:target {
+  color:red;
+}
