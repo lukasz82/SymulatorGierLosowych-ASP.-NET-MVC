@@ -1,10 +1,10 @@
 ﻿function ReturnExceedingNumbersToTable(table)
 {
-    console.log('tablica przekazana z funkcji' + table);
+    //console.log('tablica przekazana z funkcji' + table);
     var max = table.length;
     var coupon_count = 0;
-    console.log('res: ' + table);
-    console.log('max: ' + max);
+    //console.log('res: ' + table);
+    //console.log('max: ' + max);
     let couponsQuantity = [];
 
     // Zerowanie tablicy couponsQuantity
@@ -13,7 +13,7 @@
         couponsQuantity[j] = 0;
     }
 
-    console.log('zerowanie' + couponsQuantity);
+    //console.log('zerowanie' + couponsQuantity);
 
     // Analizowanie tablicy w celu wyłapania ilości klikniętych 
     for (var i = 1; i <= max; i++)
@@ -22,7 +22,7 @@
         {
             if (i == table[j])
             {
-                console.log('i jest rownowazne table[j] : i = ' + i + 'table[j] = ' + table[j]);
+                //console.log('i jest rownowazne table[j] : i = ' + i + 'table[j] = ' + table[j]);
                 coupon_count++;
             }
         }
@@ -33,6 +33,6 @@
         }
         coupon_count = 0;
     }
-    console.log('coupon count !!! : ' + couponsQuantity);
+    //console.log('coupon count !!! : ' + couponsQuantity);
     return couponsQuantity;
 }

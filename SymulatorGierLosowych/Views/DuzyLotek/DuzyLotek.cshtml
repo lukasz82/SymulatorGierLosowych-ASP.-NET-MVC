@@ -17,7 +17,7 @@
     <input type="button" onclick="GetNumberOfPlayslip('button')" name="button" value="Akceptuj">
     <input type="button" onclick="GetNumberOfPlayslip('+')" name="+" value="+">
     <input type="button" onclick="GetNumberOfPlayslip('-')" name="-" value="-">
-    <div id="id_number"></div>
+    <div id="messages"> Komunikaty</div>
     <br /><br />
     <div id="max"></div>
     <br /><br />
@@ -37,29 +37,6 @@
         var numbersDiv = $("#numbers");
         var resDiv = $("#res");
 
-        function GetNumberOfPlayslip(input)
-        {
-            if (input == "+")
-            {
-                count++;
-                RenderCoupon(count,numbersDiv,resDiv);
-                return;
-            }
-            if (input == "-")
-            {
-                count--;
-                RenderCoupon(count, numbersDiv, resDiv);
-                return;
-            }
-
-            if (input == "button")
-            {
-                count = $("#numbers").val();
-                RenderCoupon(count, numbersDiv, resDiv);
-                return;
-            }
-        }
-
         let tabOfDivIndexs = [];
         let resTable = [];
         let maxNumbersOnTheCoupon = 6;
@@ -67,29 +44,57 @@
         // Do tej tablicy zapisuję te kupony w których już wykorzystano maksymalną liczbę klikniętych numerów
         let couponLimitTable = [];
         let couponsQuantity;
+        let anyNumberClicked = false;
+
+        function GetNumberOfPlayslip(input)
+        {
+            if (anyNumberClicked == false)
+            {
+                //debugger;
+                if (input == "+")
+                {
+                    count++;
+                    RenderCoupon(count,numbersDiv,resDiv);
+                    return;
+                }
+                if (input == "-")
+                {
+                    count--;
+                    RenderCoupon(count, numbersDiv, resDiv);
+                    return;
+                }
+
+                if (input == "button")
+                {
+                    count = $("#numbers").val();
+                    RenderCoupon(count, numbersDiv, resDiv);
+                    return;
+                }
+            } 
+            else if (anyNumberClicked == true) 
+            {
+                $('#messages').html('Nie możesz dodać więcej losów po zaznaczeniu liczb, odśwież stronę.');
+            }
+        }
 
         // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
         $('body').on('click', '.number', function ()
         {
             console.clear();
-
+            anyNumberClicked = true;
             // Zczytanie wartości Id zaznaczonego <div> 
             var id = $(this).attr('id');
-            $('#id_number').html('Id wynosi: ' + id);
+            $('#messages').html('Id wynosi: ' + id);
 
             if (couponLimitTable[ClickedCouponNumber(id)] != true) {
 
                 if (couponsQuantity != null) {
                     var message = "";
                     for (var j = 0; j <= couponsQuantity.length; j++) {
-                        console.log('analiza : j = ' + j + ' tablica = ' + couponsQuantity[j]);
                         if (couponsQuantity[j] == maxNumbersOnTheCoupon) {
-                            message = message + 'W losie: ' + j + ' - jest już maksymalna ilość liczb! <br />';
                             couponLimitTable[j] = true;
-                            $(this).css("background-color", "#ffffff");
-                            $('#' + j).css("background-color", "#fff6f6");
+                            $('#' + j).css("background-color", "#ffcccc");
                         }
-                        $('#max').html(message);
                     }
                 }
             }
@@ -103,16 +108,10 @@
                 {
                     tabOfDivIndexs.push(id);
 
-                    // Szukanie ilości wprowadzonych liczb w danym losie
-                    console.log('tablica 1 - numery: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 1));
-                    console.log('tablica 2 - kupony: ' + SeparationOfNumbersByATab(tabOfDivIndexs, 2));
-
                     // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
                     resTable = SeparationOfNumbersByATab(tabOfDivIndexs, 2);
-                    console.log('res table : ' + resTable);
 
                     // CSS - zaznaczenie na kolor niebieski elementu
-                    console.log('couponlimit table - ' + couponLimitTable);
                     if (changeColor == true) {
                         $(this).css("background-color", "#ffbf80");
                         changeColor = false;
@@ -126,14 +125,15 @@
                 return;
             }
 
-            console.log('Id równa się = ' + id);
-            console.log('tablica = ' + tabOfDivIndexs);
-            console.log('res table 2 : ' + resTable);
-
             couponsQuantity = ReturnExceedingNumbersToTable(resTable);
-            console.log('coupons quantity : ' + couponsQuantity);
-
+            if (couponsQuantity[ClickedCouponNumber(id)] == maxNumbersOnTheCoupon)
+            {
+                $('#' + ClickedCouponNumber(id)).css("background-color", "#ffcccc");
+            }
         });
+
+
+
 
     function GetNumbers() {
         $.ajax({
