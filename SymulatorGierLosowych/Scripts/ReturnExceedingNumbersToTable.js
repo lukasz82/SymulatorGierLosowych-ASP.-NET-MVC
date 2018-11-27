@@ -1,6 +1,6 @@
-﻿function ReturnExceedingNumbersToTable(table)
+﻿function ReturnExceedingNumbersToTable(table, count,clickedCoupon)
 {
-    //console.log('tablica przekazana z funkcji' + table);
+    console.log('tablica przekazana z funkcji' + table);
     var max = table.length;
     var coupon_count = 0;
     //console.log('res: ' + table);
@@ -8,17 +8,17 @@
     let couponsQuantity = [];
 
     // Zerowanie tablicy couponsQuantity
-    for (var j = 0; j <= max; j++)
-    {
-        couponsQuantity[j] = 0;
-    }
+    //for (var j = 0; j <= max; j++)
+    //{
+    //    couponsQuantity[j] = 0;
+    //}
 
     //console.log('zerowanie' + couponsQuantity);
 
     // Analizowanie tablicy w celu wyłapania ilości klikniętych 
     for (var i = 1; i <= max; i++)
     {
-        for (var j = 0; j < max; j++)
+        for (var j = 0; j < count; j++)
         {
             if (i == table[j])
             {
@@ -29,7 +29,7 @@
 
         if (coupon_count > 0)
         {
-            couponsQuantity[i] = coupon_count;
+            couponsQuantity[clickedCoupon] = coupon_count;
         }
         coupon_count = 0;
     }

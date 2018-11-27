@@ -23,7 +23,10 @@
     <br /><br />
     <div id="res"></div>
     <br />
-    <input type="button" onclick="GetNumbers()" name="getnumbers" value="getnumbers">
+    <input type="button" onclick="GetNumbers_2_Param(6,49)" name="getnumbers" value="Duży Lotek">
+    <input type="button" onclick="GetNumbers_2_Param(5,42)" name="getnumbers" value="Mini Lotek">
+    <input type="button" onclick="GetNumbers_4_Param(5,50,2,10)" name="getnumbers" value="Euro">
+    @*<input type="button" onclick="GetTest(5,50,2,10)" name="getnumbers" value="GetTest">*@
     <br />
     Wylosowane liczby
     <div id="dat"></div>
@@ -46,52 +49,44 @@
         let couponsQuantity;
         let anyNumberClicked = false;
 
-        function GetNumberOfPlayslip(input)
-        {
-            if (anyNumberClicked == false)
-            {
+        function GetNumberOfPlayslip(input) {
+            if (anyNumberClicked == false) {
                 //debugger;
-                if (input == "+")
-                {
+                if (input == "+") {
                     count++;
-                    RenderCoupon(count,numbersDiv,resDiv);
+                    RenderCoupon(count, numbersDiv, resDiv);
                     return;
                 }
-                if (input == "-")
-                {
+                if (input == "-") {
                     count--;
                     RenderCoupon(count, numbersDiv, resDiv);
                     return;
                 }
 
-                if (input == "button")
-                {
+                if (input == "button") {
                     count = $("#numbers").val();
                     RenderCoupon(count, numbersDiv, resDiv);
                     return;
                 }
-            } 
-            else if (anyNumberClicked == true) 
-            {
+            }
+            else if (anyNumberClicked == true) {
                 $('#messages').html('Nie możesz dodać więcej losów po zaznaczeniu liczb, odśwież stronę.');
             }
         }
 
         // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
-        $('body').on('click', '.number', function ()
-        {
+        $('body').on('click', '.number', function () {
             console.clear();
             anyNumberClicked = true;
-            // Zczytanie wartości Id zaznaczonego <div> 
+            // Zczytanie wartości Id zaznaczonego <div>
             var id = $(this).attr('id');
             $('#messages').html('Id wynosi: ' + id);
 
             if (couponLimitTable[ClickedCouponNumber(id)] != true) {
-
                 if (couponsQuantity != null) {
                     var message = "";
                     for (var j = 0; j <= couponsQuantity.length; j++) {
-                        if (couponsQuantity[j] == maxNumbersOnTheCoupon) {
+                        if (couponsQuantity[j] >= maxNumbersOnTheCoupon) {
                             couponLimitTable[j] = true;
                             $('#' + j).css("background-color", "#ffcccc");
                         }
@@ -101,12 +96,11 @@
 
             // Dodanie zaznaczonych liczb do tablicy
             // zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
-            if (tabOfDivIndexs.indexOf(id) == -1)
-            {
+            if (tabOfDivIndexs.indexOf(id) == -1) {
                 // Nie pozwoli by dodać nową liczbę, jeżeli ilość wprowadzonych na kuponie przekroczy maksymalną dopuszczalną
-                if (couponLimitTable[ClickedCouponNumber(id)] != true)
-                {
+                if (couponLimitTable[ClickedCouponNumber(id)] != true) {
                     tabOfDivIndexs.push(id);
+                    console.log('tab of div indexs ' + tabOfDivIndexs);
 
                     // Rozdzielenie numeru losu od numeru na losie "|" i przypisanie wartości do tablic
                     resTable = SeparationOfNumbersByATab(tabOfDivIndexs, 2);
@@ -115,61 +109,83 @@
                     if (changeColor == true) {
                         $(this).css("background-color", "#ffbf80");
                         changeColor = false;
-                    } else if (changeColor == false) {
+                    }
+                    else if (changeColor == false) {
                         $(this).css("background-color", "#b3d7ff");
                         changeColor = true;
                     }
                 }
-            } else if (tabOfDivIndexs.indexOf(id) == 1)
-            {
+            }
+            else if (tabOfDivIndexs.indexOf(id) == 1) {
                 return;
             }
 
-            couponsQuantity = ReturnExceedingNumbersToTable(resTable);
-            if (couponsQuantity[ClickedCouponNumber(id)] == maxNumbersOnTheCoupon)
-            {
+            couponsQuantity = ReturnExceedingNumbersToTable(resTable, count, ClickedCouponNumber(id));
+            console.log('res table ' + resTable);
+            console.log('cupons quant ' + couponsQuantity);
+            if (couponsQuantity[ClickedCouponNumber(id)] == maxNumbersOnTheCoupon) {
                 $('#' + ClickedCouponNumber(id)).css("background-color", "#ffcccc");
             }
         });
 
 
+        function GetNumbers_2_Param(x, y) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetNumbers2", "DuzyLotek")",
+                data: { 'x': x, 'y': y },
+                success: function (data) {
+                    console.log('wielkosc tablicy ' + data.length);
+                    console.log('tablica ' + data);
+                    var result = "";
+                    var dLenght = data.length;
 
-
-    function GetNumbers() {
-        $.ajax({
-            type: "GET",
-            url: "@Url.Action("GetNumbers", "DuzyLotek")",
-            success:function(data)
-            {
-                console.log('wielkosc tablicy ' + data.length);
-                console.log('tablica ' + data);
-                var result = "";
-                var dLenght = data.length;
-
-                for (var i = 0; i < dLenght; i++)
-                {
-                    if (i == dLenght - 1)
-                    {
-                        result = result + data[i];
-                        break;
+                    for (var i = 0; i < dLenght; i++) {
+                        if (i == dLenght - 1) {
+                            result = result + data[i];
+                            break;
+                        }
+                        result = result + data[i] + " , ";
                     }
-                    result = result + data[i] + " , ";
+
+                    $('#dat').html(result);
+                    console.log(result);
                 }
+                ,
+                error: function (error) {
+                    $('#dat').html("jakiś błąd");
+                }
+            });
+        }
 
-                $('#dat').html(result);
-                console.log(result);
-            },
-            error: function (error) {
-                $('#dat').html("jakiś błąd");
-            }
+        function GetNumbers_4_Param(x1, y1, x2, y2) {
+            console.log("x1: " + x1 + "y1: " + y1, "x2: " + x2 + "y2: " + y2);
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetNumbers4", "DuzyLotek")",
+                data: { 'x1': x1, 'y1': y1, 'x2': x2, 'y2': y2 },
+                success: function (data) {
+                    console.log(data);
+                    console.log('wielkosc tablicy ' + data.length);
+                    console.log('tablica ' + data);
+                    var result = "";
+                    result = "Pierwsza liczba: " + data.tab1 + " a Druga liczba: " + data.tab2;
+
+                    $('#dat').html(result);
+                    console.log(result);
+                }
+                ,
+                error: function (error) {
+                    $('#dat').html("jakiś błąd");
+                }
+            });
+        }
+
+        let zmienna = "jakiś tekst";
+        $("#myDiv").css("border", "3px solid red");
+        $("#myDiv").html(zmienna);
+
+        $("#dat").click(function () {
+            $("#myDiv").html(games);
         });
-    }
-
-    let zmienna = "jakiś tekst";
-    $("#myDiv").css("border", "3px solid red");
-    $("#myDiv").html(zmienna);
-
-    $("#dat").click(function () {
-        $("#myDiv").html(games);
-    });
 </script>

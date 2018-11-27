@@ -12,20 +12,21 @@ namespace SymulatorGierLosowych.ClassOfGenerators
         private int number;
         Stack<int> numbers = new Stack<int>();
 
-        public int [] ReturnNumbers(int howManyNumbers)
+        public int [] ReturnNumbers(int howManyNumbers, int range)
         {
+            range++;
             for (int i = 1; i <= howManyNumbers; i++)
             {
                 // Przy pierwszym wejściu losuje po prostu numer
                 if (numbers.Count == 0)
                 {
-                    number = rnd.Next(1, 49);
+                    number = rnd.Next(1, range);
                 }
                 
                 // Zabezpieczenie przed duplikowaniem się numerów
                 while (numbers.Contains(number))
                 {
-                    number = rnd.Next(1, 49);
+                    number = rnd.Next(1, range);
                 }
                 numbers.Push(number);
             }   
