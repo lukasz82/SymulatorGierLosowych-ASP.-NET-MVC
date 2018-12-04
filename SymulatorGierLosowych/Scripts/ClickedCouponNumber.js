@@ -5,7 +5,6 @@
         if (string[j] == '|') {
             //console.log('zwrocony string = ' + returnString);
             return returnString;
-            
         }
         returnString += string[j];
     }

@@ -139,6 +139,11 @@
   <ItemGroup>
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\RenderCoupn.js" />
     <Content Include="Scripts\ReturnExceedingNumbersToTable.js" />
     <Content Include="Scripts\ClickedCouponNumber.js" />
@@ -191,6 +196,8 @@
     <Content Include="Views\Game\AddNewGame.cshtml" />
     <Content Include="Views\Game\AddGameToDB.cshtml" />
     <Content Include="Views\Examples\AjaxExample.cshtml" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

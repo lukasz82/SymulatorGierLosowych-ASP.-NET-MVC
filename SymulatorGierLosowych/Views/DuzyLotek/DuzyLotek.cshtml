@@ -89,13 +89,14 @@
                         if (couponsQuantity[j] >= maxNumbersOnTheCoupon) {
                             couponLimitTable[j] = true;
                             $('#' + j).css("background-color", "#ffcccc");
+                            
                         }
                     }
                 }
             }
 
             // Dodanie zaznaczonych liczb do tablicy
-            // zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
+            // TODO: zabezpieczenie przed powielaniem się wartości w tablicy (opakować później w funkcję)
             if (tabOfDivIndexs.indexOf(id) == -1) {
                 // Nie pozwoli by dodać nową liczbę, jeżeli ilość wprowadzonych na kuponie przekroczy maksymalną dopuszczalną
                 if (couponLimitTable[ClickedCouponNumber(id)] != true) {
@@ -128,7 +129,6 @@
             }
         });
 
-
         function GetNumbers_2_Param(x, y) {
             $.ajax({
                 type: "GET",
@@ -139,15 +139,23 @@
                     console.log('tablica ' + data);
                     var result = "";
                     var dLenght = data.length;
+                    $( "div.coupon" ).children().css( "border", "1px solid #FFFFFF" );
 
-                    for (var i = 0; i < dLenght; i++) {
+                    for (var i = 0; i <= dLenght; i++) {
                         if (i == dLenght - 1) {
                             result = result + data[i];
+                            document.getElementById("1|" + data[i]).style.border = "1px solid #FF0000";
                             break;
                         }
                         result = result + data[i] + " , ";
-                    }
 
+                        // Bardzo ciekawa ciekawostka, nie działa zmiana tła elementu
+                        // po Id w jquery a w javascipcie działa, pewnie chodzi
+                        // o css...
+
+                        //$("#1|40").css("background-color", "#ff0000");
+                        document.getElementById("1|" + data[i]).style.border = "1px solid #FF0000";
+                    }
                     $('#dat').html(result);
                     console.log(result);
                 }
