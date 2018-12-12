@@ -140,6 +140,8 @@
     <Content Include="Content\Style.css" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\GetNumberOfPlayslip.js" />
+    <Content Include="Scripts\GetNumbers.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -165,9 +167,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201808240537460_nowa-migracja.cs" />
-    <Compile Include="Migrations\201808240537460_nowa-migracja.Designer.cs">
-      <DependentUpon>201808240537460_nowa-migracja.cs</DependentUpon>
+    <Compile Include="Migrations\201812110837555_PierwszaMigracja.cs" />
+    <Compile Include="Migrations\201812110837555_PierwszaMigracja.Designer.cs">
+      <DependentUpon>201812110837555_PierwszaMigracja.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DuzyLotek.cs" />
@@ -209,8 +211,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201808240537460_nowa-migracja.resx">
-      <DependentUpon>201808240537460_nowa-migracja.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201812110837555_PierwszaMigracja.resx">
+      <DependentUpon>201812110837555_PierwszaMigracja.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

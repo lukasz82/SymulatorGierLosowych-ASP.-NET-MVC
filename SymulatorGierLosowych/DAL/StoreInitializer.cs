@@ -11,6 +11,7 @@ namespace SymulatorGierLosowych.DAL
 {
     // Tutaj będę wrzucał przykładowe dane do bazy
     public class StoreInitializer : MigrateDatabaseToLatestVersion<StoreContex, Configuration>
+    //public class StoreInitializer : DropCreateDatabaseAlways<StoreContex>
     {
         // Nadpisuję metodę seed 
         //protected override void Seed(StoreContex contex)

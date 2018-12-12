@@ -8,15 +8,17 @@
 <script src="~/Scripts/ReturnExceedingNumbersToTable.js"></script>
 <script src="~/Scripts/ClickedCouponNumber.js"></script>
 <script src="~/Scripts/RenderCoupn.js"></script>
+<script src="~/Scripts/GetNumbers.js"></script>
+<script src="~/Scripts/GetNumberOfPlayslip.js"></script>
 
 <h2>DuzyLotek</h2>
 
     Podaj ilość losów, nie może być więcej niż 100<br>
 
     <input type="number" placeholder="1" min="0" max="100" name="playslip" id="numbers">
-    <input type="button" onclick="GetNumberOfPlayslip('button')" name="button" value="Akceptuj">
-    <input type="button" onclick="GetNumberOfPlayslip('+')" name="+" value="+">
-    <input type="button" onclick="GetNumberOfPlayslip('-')" name="-" value="-">
+    <input type="button" onclick="GetNumberOfPlayslip('button',count, numbersDiv, resDiv, anyNumberClicked)" name="button" value="Akceptuj">
+    <input type="button" onclick="GetNumberOfPlayslip('+',count, numbersDiv, resDiv, anyNumberClicked)" name="+" value="+">
+    <input type="button" onclick="GetNumberOfPlayslip('-',count, numbersDiv, resDiv, anyNumberClicked)" name="-" value="-">
     <div id="messages"> Komunikaty</div>
     <br /><br />
     <div id="max"></div>
@@ -24,6 +26,7 @@
     <div id="res"></div>
     <br />
     <input type="button" onclick="GetNumbers_2_Param(6,49)" name="getnumbers" value="Duży Lotek">
+    <input type="text" onkeypress="myFunction()">
     <input type="button" onclick="GetNumbers_2_Param(5,42)" name="getnumbers" value="Mini Lotek">
     <input type="button" onclick="GetNumbers_4_Param(5,50,2,10)" name="getnumbers" value="Euro">
     @*<input type="button" onclick="GetTest(5,50,2,10)" name="getnumbers" value="GetTest">*@
@@ -48,31 +51,6 @@
         let couponLimitTable = [];
         let couponsQuantity;
         let anyNumberClicked = false;
-
-        function GetNumberOfPlayslip(input) {
-            if (anyNumberClicked == false) {
-                //debugger;
-                if (input == "+") {
-                    count++;
-                    RenderCoupon(count, numbersDiv, resDiv);
-                    return;
-                }
-                if (input == "-") {
-                    count--;
-                    RenderCoupon(count, numbersDiv, resDiv);
-                    return;
-                }
-
-                if (input == "button") {
-                    count = $("#numbers").val();
-                    RenderCoupon(count, numbersDiv, resDiv);
-                    return;
-                }
-            }
-            else if (anyNumberClicked == true) {
-                $('#messages').html('Nie możesz dodać więcej losów po zaznaczeniu liczb, odśwież stronę.');
-            }
-        }
 
         // 'body' jest potrzebne dla "zobaczenia" elementów dynamicznie załadowanych
         $('body').on('click', '.number', function () {
@@ -120,7 +98,6 @@
             else if (tabOfDivIndexs.indexOf(id) == 1) {
                 return;
             }
-
             couponsQuantity = ReturnExceedingNumbersToTable(resTable, count, ClickedCouponNumber(id));
             console.log('res table ' + resTable);
             console.log('cupons quant ' + couponsQuantity);
@@ -141,20 +118,23 @@
                     var dLenght = data.length;
                     $( "div.coupon" ).children().css( "border", "1px solid #FFFFFF" );
 
-                    for (var i = 0; i <= dLenght; i++) {
-                        if (i == dLenght - 1) {
-                            result = result + data[i];
-                            document.getElementById("1|" + data[i]).style.border = "1px solid #FF0000";
-                            break;
+                    console.log($("#numbers").val());
+                    for (var j = 1; j <= $("#numbers").val(); j++) {
+                        for (var i = 0; i <= dLenght; i++) {
+                            if (i == dLenght - 1) {
+                                result = result + data[i];
+                                document.getElementById(j+ "|" + data[i]).style.border = "1px solid #FF0000";
+                                break;
+                            }
+                            result = result + data[i] + " , ";
+
+                            // Bardzo ciekawa ciekawostka, nie działa zmiana tła elementu
+                            // po Id w jquery a w javascipcie działa, pewnie chodzi
+                            // o css...
+
+                            //$("#1|40").css("background-color", "#ff0000");
+                            document.getElementById(j+ "|" + data[i]).style.border = "1px solid #FF0000";
                         }
-                        result = result + data[i] + " , ";
-
-                        // Bardzo ciekawa ciekawostka, nie działa zmiana tła elementu
-                        // po Id w jquery a w javascipcie działa, pewnie chodzi
-                        // o css...
-
-                        //$("#1|40").css("background-color", "#ff0000");
-                        document.getElementById("1|" + data[i]).style.border = "1px solid #FF0000";
                     }
                     $('#dat').html(result);
                     console.log(result);

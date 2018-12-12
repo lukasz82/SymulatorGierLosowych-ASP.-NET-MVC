@@ -3,7 +3,7 @@ namespace SymulatorGierLosowych.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class nowamigracja : DbMigration
+    public partial class PierwszaMigracja : DbMigration
     {
         public override void Up()
         {

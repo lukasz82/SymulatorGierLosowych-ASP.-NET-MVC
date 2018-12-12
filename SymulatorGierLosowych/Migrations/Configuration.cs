@@ -15,7 +15,9 @@ namespace SymulatorGierLosowych.Migrations
 
         protected override void Seed(SymulatorGierLosowych.DAL.StoreContex context)
         {
+            // Je¿eli chce seedowaæ dane omyœlne to odblokowac/zablokowaæ od potrzeby
             StoreInitializer.SeedStoreData(context);
+           
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
